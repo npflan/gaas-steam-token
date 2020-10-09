@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package token;
+
+import "google/protobuf/Empty.proto";
+
+option go_package = "github.com/Cytram/csgo-token/proto;token";
+
+service Tokenservice {
+  rpc CreateToken (CreateTokenRequest) returns (CreateTokenReply) {}
+  rpc DeleteToken (DeleteTokenRequest) returns (google.protobuf.Empty) {}
+  rpc ViewToken (ViewTokenRequest) returns (ViewTokenReply) {}
+}
+
+message CreateTokenRequest {
+  string description = 1;
+  int32  appid       = 2;
+}
+
+message CreateTokenReply {
+  string id = 1;
+}
+
+message DeleteTokenRequest {
+  string id = 1;
+}
+
+message DeleteTokenReply {
+  string id = 1;
+}
+
+message ViewTokenRequest {
+  string id          = 1;
+  string description = 2;
+}
+
+message ViewTokenReply {
+  string id          = 1;
+  string description = 2;
+}

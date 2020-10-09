@@ -15,7 +15,7 @@ func main() {
 	}
 	s := grpc.NewServer()
 	pb.RegisterTokenserviceServer(s, &handler.Server{})
-
+	log.Printf("Start listing on :8080")
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}

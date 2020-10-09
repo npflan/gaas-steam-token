@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: steam-token-handler
+  namespace: gaas-backend
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+  labels:
+    app.kubernetes.io/name: steam-token-handler
+    app.kubernetes.io/part-of: gaas
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: steam-token-handler
+      app.kubernetes.io/part-of: gaas
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: steam-token-handler
+        app.kubernetes.io/part-of: gaas
+    spec:
+      containers:
+      - name: steam-token-handler
+        image: registry.npf.dk/steam-token-handler:latest
+        ports:
+        - containerPort: 8080
+        envFrom:
+        - secretRef:
+            name: steam-token-handler
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+  creationTimestamp: null
+  name: steam-token-handler
+  namespace: gaas-backend
+spec:
+  encryptedData:
+    STEAM_WEB_API_KEY: AgAjP3SSwJ+m9tSVfp6uGVp1vSpPmlkjZfkwU0Yhs4bYtCiQAy1mKCWvEkX62kikGvgreVR72FditRrvOoE3XeS38/BIXZ/57sBnny3NUvv6KkG0K2Ihd30wrWhizkVZK7Xn1j2XLP9ZQgFpQNUtNHYIZN2S5B56g314xfdQXM2BDBUDxxTQqsQJLcz6lhnJHS6VEESM7b7sHsgCzVfOkXmX6PnHKlj3c2slS/qKCGS9IOUBCOL0h+BugQxI5DUTlG1j7I/7vzn+JEleBKquO0yjMy+x+XVDC8AwSeOhFjsrARTABCawjiVOvOFDzf83XcRWU9TwICkK1IvfOjK/xI+ReSFScoKv1YqiVLTNtHmXD2p2lysFia6+rSsR040enLsBnte3oEqZO+iqaMMLLM5JwK3eoDYVdhDU/ytDsLPP+9uZWWraGQwleUmRKH2t5VrCPs53MTNUt3Ci9wt99SzoFlsbodvK4DMGokeBFXFRrPxWde5YMeLiI92d1dRFPQUGSyke/7Ndv3mClEaBOdMX9kMrW3WfNoSAqGy0xhoOTH7hEQYyXqxh84RhjWC6ZkHtZVnlldt5UrZLLy9o1tbw2Xvlt+mL/4SF4vADChp+mkIZTJx/aCC25hTcgRnwDM/QL6oU3LAHKIKvttl0/pZOk8CpqXC/fdmFzrbcRxN9iDF1NwjuVQ55I2bGC5fWW1/H4aMIgRhSbmyfhmtB092DiR/oPqMxciML6vGfOgCqAg==
+  template:
+    metadata:
+      creationTimestamp: null
+      name: steam-token-handler
+      namespace: gaas-backend
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/name: steam-token-handler
+    app.kubernetes.io/part-of: gaas
+  name: steam-token-handler
+  namespace: gaas-backend
+spec:
+  clusterIP: 10.96.10.12
+  ports:
+  - name: grpc
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app.kubernetes.io/name: steam-token-handler
+  type: ClusterIP

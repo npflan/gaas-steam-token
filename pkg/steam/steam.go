@@ -158,6 +158,8 @@ func DeleteAccount(steamID string) (err error) {
 	params := make(map[string]string)
 	params["steamid"] = steamID
 
+	fmt.Println(params)
+
 	_, err = querySteam("DeleteAccount", "POST", params)
 	if err != nil {
 		return err

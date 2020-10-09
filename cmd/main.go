@@ -3,10 +3,9 @@ package main
 import (
 	handler "github.com/Cytram/csgo-token/pkg"
 	pb "github.com/Cytram/csgo-token/proto"
+	"google.golang.org/grpc"
 	"log"
 	"net"
-
-	"google.golang.org/grpc"
 )
 
 func main() {

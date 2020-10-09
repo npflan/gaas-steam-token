@@ -1,14 +1,13 @@
 syntax = "proto3";
 
-package tokenhandler;
+package steamtoken;
 
 
-option go_package = "github.com/Cytram/csgo-token/proto;token";
+option go_package = "github.com/npf/proto/steam-token;steamtoken";
 
 service Tokenservice {
   rpc CreateToken (CreateTokenRequest) returns (CreateTokenReply) {}
   rpc DeleteToken (DeleteTokenRequest) returns (DeleteTokenReply) {}
-  rpc ViewToken (ViewTokenRequest) returns (ViewTokenReply) {}
 }
 
 message CreateTokenRequest {
@@ -17,23 +16,13 @@ message CreateTokenRequest {
 }
 
 message CreateTokenReply {
-  string id = 1;
+  string server_token = 1;
 }
 
 message DeleteTokenRequest {
-  string id = 1;
+  string server_token = 1;
 }
 
 message DeleteTokenReply {
   string id = 1;
-}
-
-message ViewTokenRequest {
-  string id   = 1;
-  string memo = 2;
-}
-
-message ViewTokenReply {
-  string id   = 1;
-  string memo = 2;
 }

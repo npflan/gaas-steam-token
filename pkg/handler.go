@@ -1,11 +1,10 @@
 package handler
 
 import (
-	"fmt"
-	pb "github.com/Cytram/csgo-token/proto"
-	steam "github.com/Cytram/csgo-token/pkg/steam"
 	"context"
-
+	"github.com/Cytram/csgo-token/pkg/steam"
+	pb "github.com/Cytram/csgo-token/proto"
+	"log"
 )
 
 // Server Struct
@@ -14,9 +13,21 @@ type Server struct {
 }
 
 func (s *Server) CreateToken (ctx context.Context, req *pb.CreateTokenRequest) (*pb.CreateTokenReply, error) {
+	log.Printf("creating token for %s for game %s", req.Memo, req.AppId)
 	game, err := steam.CreateAccount(req.AppId, req.Memo)
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 	}
-	return &pb.CreateTokenReply{Id: game.LoginToken}, nil
+	return &pb.CreateTokenReply{ServerToken: game.SteamID}, nil
 }
+
+func (s *Server) DeleteToken (ctx context.Context, req *pb.DeleteTokenRequest) (*pb.DeleteTokenReply, error){
+	log.Printf("deleting token %s", req.ServerToken)
+	err := steam.DeleteAccount(req.ServerToken)
+	if err != nil{
+		log.Println(err)
+	}
+	// return 1 for because no empty reply
+	return &pb.DeleteTokenReply{Id: "1"}  , nil
+}
+

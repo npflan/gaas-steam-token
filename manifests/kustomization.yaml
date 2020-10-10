@@ -5,5 +5,4 @@ resources:
 
 images:
 - name: registry.npf.dk/steam-token-handler
-  newTag: v1
-
+  newName: 20201010-031719

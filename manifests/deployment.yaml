@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: steam-token-handler
-        image: registry.npf.dk/steam-token-handler:latest
+        image: registry.npf.dk/steam-token-handler
         ports:
         - containerPort: 8080
         envFrom:

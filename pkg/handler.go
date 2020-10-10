@@ -13,7 +13,7 @@ type Server struct {
 }
 
 func (s *Server) CreateToken (ctx context.Context, req *pb.CreateTokenRequest) (*pb.CreateTokenReply, error) {
-	log.Printf("creating token for %s for game %s", req.Memo, req.AppId)
+	log.Printf("creating token for %s for game %d", req.Memo, req.AppId)
 	game, err := steam.CreateAccount(req.AppId, req.Memo)
 	if err != nil {
 		log.Println(err)

@@ -18,6 +18,7 @@ func (s *Server) CreateToken (ctx context.Context, req *pb.CreateTokenRequest) (
 	if err != nil {
 		log.Println(err)
 	}
+	log.Printf("Token %s created for %s", game.SteamID, req.Memo)
 	return &pb.CreateTokenReply{ServerToken: game.SteamID}, nil
 }
 

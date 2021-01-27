@@ -4,6 +4,12 @@ resources:
 - deployment.yaml
 
 images:
+- name: /steam-token-handler
+  newName: /steam-token-handler
+  newTag: 20210127-214754
+- name: registry.emmelev-net.dk/steam-token-handler
+  newName: registry.emmelev-net.dk/steam-token-handler
+  newTag: 20210127-214801
 - name: registry.npf.dk/steam-token-handler
   newName: registry.npf.dk/steam-token-handler
   newTag: 20201012-002130

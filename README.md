@@ -6,4 +6,11 @@ This is an extension for [steam-gameserver-token-api]
 
 This service is use in GaaS to handle Steam tokens for game servers.
 
+#### Build
+
+'''
+./update.sh registry.npf.dk
+'''
+
+
 [steam-gameserver-token-api]: https://github.com/npflan/steam-gameserver-token-api

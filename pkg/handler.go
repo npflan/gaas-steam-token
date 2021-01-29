@@ -18,8 +18,8 @@ func (s *Server) CreateToken (ctx context.Context, req *pb.CreateTokenRequest) (
 	if err != nil {
 		log.Println(err)
 	}
-	log.Printf("Token %s created for %s", game.SteamID, req.Memo)
-	return &pb.CreateTokenReply{ServerToken: game.SteamID}, nil
+	log.Printf("Token %s created for %s", game.LoginToken, req.Memo)
+	return &pb.CreateTokenReply{ServerToken: game.LoginToken}, nil
 }
 
 func (s *Server) DeleteToken (ctx context.Context, req *pb.DeleteTokenRequest) (*pb.DeleteTokenReply, error){
